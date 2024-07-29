@@ -1,10 +1,8 @@
 package by.krainet.krainettesttask.domain;
 
+import by.krainet.krainettesttask.common.Roles;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -20,7 +18,8 @@ import java.util.Set;
 public class Role extends BaseDomain {
 
     @Column(name = "name")
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private Roles name;
 
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore
