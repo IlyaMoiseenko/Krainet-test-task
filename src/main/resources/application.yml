@@ -1,0 +1,24 @@
+server:
+  servlet:
+    context-path: /api/v1
+  port: 8080
+
+spring:
+  flyway:
+    enabled: true
+    locations: classpath:db/migrations
+
+  datasource:
+    url: jdbc:postgresql://localhost:5444/time-tracker
+    username: username
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
