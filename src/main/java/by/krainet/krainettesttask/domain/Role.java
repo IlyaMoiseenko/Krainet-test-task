@@ -1,6 +1,5 @@
 package by.krainet.krainettesttask.domain;
 
-import by.krainet.krainettesttask.common.Roles;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,12 +13,11 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "tb_user")
+@Table(name = "tb_role")
 public class Role extends BaseDomain {
 
     @Column(name = "name")
-    @Enumerated(EnumType.STRING)
-    private Roles name;
+    private String name;
 
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore

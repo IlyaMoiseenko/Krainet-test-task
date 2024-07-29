@@ -27,5 +27,7 @@ public class User extends BaseDomain {
             joinColumns = @JoinColumn(name = "fk_user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "fk_role_id", referencedColumnName = "id")
     )
+
+    @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 }

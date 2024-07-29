@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "tb_user")
+@Table(name = "tb_record")
 public class Record extends BaseDomain {
 
     @Column(name = "start_time")

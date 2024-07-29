@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "tb_user")
+@Table(name = "tb_project")
 public class Project extends BaseDomain {
 
     @Column(name = "name")
