@@ -1,7 +1,9 @@
 package by.krainet.krainettesttask.controller;
 
 import by.krainet.krainettesttask.domain.User;
+import by.krainet.krainettesttask.dto.request.AuthenticationRequest;
 import by.krainet.krainettesttask.dto.request.RegistrationRequest;
+import by.krainet.krainettesttask.dto.response.AuthenticationResponse;
 import by.krainet.krainettesttask.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +31,10 @@ public class AuthenticationController {
         authenticationService.register(user);
 
         return ResponseEntity.accepted().build();
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody @Valid AuthenticationRequest request) {
+        return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 }
