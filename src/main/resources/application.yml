@@ -6,7 +6,8 @@ server:
 spring:
   flyway:
     enabled: true
-    locations: classpath:db/migrations
+    locations: classpath:db/migration
+    baseline-on-migrate: true
 
   datasource:
     url: jdbc:postgresql://localhost:5444/time-tracker
