@@ -2,6 +2,7 @@ package by.krainet.krainettesttask.controller;
 
 import by.krainet.krainettesttask.domain.Project;
 import by.krainet.krainettesttask.dto.request.ProjectRequest;
+import by.krainet.krainettesttask.dto.request.UpdateProjectRequest;
 import by.krainet.krainettesttask.dto.response.PageResponse;
 import by.krainet.krainettesttask.dto.response.ProjectResponse;
 import by.krainet.krainettesttask.mapper.ProjectMapper;
@@ -67,5 +68,18 @@ public class ProjectController {
         projectService.deleteByName(name);
 
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{project-name}")
+    public ResponseEntity<ProjectResponse> update(@PathVariable(name = "project-name") String name,
+                                                  @RequestBody @Valid UpdateProjectRequest request) {
+        Project projectToUpdate = projectService.findByName(name);
+
+        Project updatedProject = projectService.update(request, projectToUpdate);
+
+        return new ResponseEntity<>(
+                projectMapper.toProjectResponse(updatedProject),
+                HttpStatus.OK
+        );
     }
 }

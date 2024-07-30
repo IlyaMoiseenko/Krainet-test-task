@@ -1,6 +1,7 @@
 package by.krainet.krainettesttask.service;
 
 import by.krainet.krainettesttask.domain.Project;
+import by.krainet.krainettesttask.dto.request.UpdateProjectRequest;
 import by.krainet.krainettesttask.exception.EntityNotFoundException;
 import by.krainet.krainettesttask.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,5 +38,12 @@ public class ProjectService {
                 .orElseThrow(() -> new EntityNotFoundException(Project.class, Map.of("Name", name)));
 
         projectRepository.deleteById(project.getId());
+    }
+
+    public Project update(UpdateProjectRequest request, Project toUpdate) {
+        toUpdate.setName(request.getName());
+        toUpdate.setDescription(request.getDescription());
+
+        return projectRepository.save(toUpdate);
     }
 }
