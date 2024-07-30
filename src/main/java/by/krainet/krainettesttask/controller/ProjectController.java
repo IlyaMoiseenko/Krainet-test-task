@@ -51,4 +51,14 @@ public class ProjectController {
                 )
         );
     }
+
+    @GetMapping("/{project-name}")
+    public ResponseEntity<ProjectResponse> getByName(@PathVariable(name = "project-name") String name) {
+        Project project = projectService.findByName(name);
+
+        return new ResponseEntity<>(
+                projectMapper.toProjectResponse(project),
+                HttpStatus.FOUND
+        );
+    }
 }
