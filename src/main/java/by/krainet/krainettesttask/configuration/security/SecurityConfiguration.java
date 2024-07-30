@@ -1,5 +1,6 @@
 package by.krainet.krainettesttask.configuration.security;
 
+import by.krainet.krainettesttask.common.Roles;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +42,7 @@ public class SecurityConfiguration {
                                         "/swagger-ui/**",
                                         "/webjars/**",
                                         "/swagger-ui.html").permitAll()
+                                .requestMatchers("/project").hasAuthority(Roles.ADMIN.getName())
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
