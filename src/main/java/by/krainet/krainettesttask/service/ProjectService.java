@@ -31,4 +31,11 @@ public class ProjectService {
         return projectRepository.findByName(name)
                 .orElseThrow(() -> new EntityNotFoundException(Project.class, Map.of("Project name", name)));
     }
+
+    public void deleteByName(String name) {
+        Project project = projectRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException(Project.class, Map.of("Name", name)));
+
+        projectRepository.deleteById(project.getId());
+    }
 }

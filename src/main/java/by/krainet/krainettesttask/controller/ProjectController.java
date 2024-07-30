@@ -61,4 +61,11 @@ public class ProjectController {
                 HttpStatus.FOUND
         );
     }
+
+    @DeleteMapping("/{project-name}")
+    public ResponseEntity<?> deleteByName(@PathVariable(name = "project-name") String name) {
+        projectService.deleteByName(name);
+
+        return ResponseEntity.ok().build();
+    }
 }
