@@ -42,7 +42,10 @@ public class SecurityConfiguration {
                                         "/swagger-ui/**",
                                         "/webjars/**",
                                         "/swagger-ui.html").permitAll()
-                                .requestMatchers("/project/**").hasAuthority(Roles.ADMIN.getName())
+                                .requestMatchers(
+                                        "/project/**",
+                                        "/record/**"
+                                ).hasAuthority(Roles.ADMIN.getName())
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
