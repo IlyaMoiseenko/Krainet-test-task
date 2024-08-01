@@ -3,6 +3,8 @@ package by.krainet.krainettesttask.controller;
 import by.krainet.krainettesttask.domain.Record;
 import by.krainet.krainettesttask.domain.User;
 import by.krainet.krainettesttask.dto.request.RecordRequest;
+import by.krainet.krainettesttask.dto.response.PageResponse;
+import by.krainet.krainettesttask.dto.response.RecordResponse;
 import by.krainet.krainettesttask.mapper.RecordMapper;
 import by.krainet.krainettesttask.service.RecordService;
 import jakarta.validation.Valid;
@@ -12,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/record")
@@ -32,6 +36,29 @@ public class RecordController {
         return new ResponseEntity<>(
                 recordService.save(record),
                 HttpStatus.CREATED
+        );
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAnyAuthority('USER')")
+    public ResponseEntity<PageResponse<RecordResponse>> getAllByUser(Authentication authentication,
+                                                     @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+                                                     @RequestParam(name = "size", required = false, defaultValue = "10") int size) {
+        User user = (User) authentication.getPrincipal();
+        List<RecordResponse> response = recordService.findAllByUser(user, page, size)
+                .stream()
+                .map(recordMapper::toResponse)
+                .toList();
+
+
+        return new ResponseEntity<>(
+                new PageResponse<>(
+                        response,
+                        page,
+                        size,
+                        response.size()
+                ),
+                HttpStatus.FOUND
         );
     }
 }
