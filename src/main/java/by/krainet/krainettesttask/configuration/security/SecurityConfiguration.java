@@ -43,8 +43,7 @@ public class SecurityConfiguration {
                                         "/webjars/**",
                                         "/swagger-ui.html").permitAll()
                                 .requestMatchers(
-                                        "/project/**",
-                                        "/record/**"
+                                        "/project/**"
                                 ).hasAuthority(Roles.ADMIN.getName())
                                 .anyRequest().authenticated()
                 )
