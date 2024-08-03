@@ -104,4 +104,12 @@ public class RecordController {
                 HttpStatus.FOUND
         );
     }
+
+    @DeleteMapping("/{record-id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseEntity<?> deleteById(@PathVariable(name = "record-id") Long recordId) {
+        recordService.deleteById(recordId);
+
+        return ResponseEntity.ok().build();
+    }
 }
