@@ -8,6 +8,7 @@ import by.krainet.krainettesttask.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> register(@RequestBody @Valid RegistrationRequest request) {
         User user = User
                 .builder()
