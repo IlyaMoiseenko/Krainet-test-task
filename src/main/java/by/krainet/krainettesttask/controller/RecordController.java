@@ -62,9 +62,9 @@ public class RecordController {
         );
     }
 
-    @GetMapping
+    @GetMapping("/{username}")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<PageResponse<RecordResponse>> getAllByUser(@RequestParam("username") String username,
+    public ResponseEntity<PageResponse<RecordResponse>> getAllByUser(@PathVariable("username") String username,
                                                                      @RequestParam(name = "page", required = false, defaultValue = "0") int page,
                                                                      @RequestParam(name = "size", required = false, defaultValue = "10") int size)
     {
@@ -84,7 +84,7 @@ public class RecordController {
         );
     }
 
-    @GetMapping
+    @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<PageResponse<RecordResponse>> getAll(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
                                                                @RequestParam(name = "size", required = false, defaultValue = "10") int size)
