@@ -41,7 +41,7 @@ public class RecordController {
 
     @GetMapping
     @PreAuthorize("hasAnyAuthority('USER')")
-    public ResponseEntity<PageResponse<RecordResponse>> getAllByUser(Authentication authentication,
+    public ResponseEntity<PageResponse<RecordResponse>> getAllByAuthenticatedUser(Authentication authentication,
                                                      @RequestParam(name = "page", required = false, defaultValue = "0") int page,
                                                      @RequestParam(name = "size", required = false, defaultValue = "10") int size) {
         User user = (User) authentication.getPrincipal();
@@ -50,6 +50,28 @@ public class RecordController {
                 .map(recordMapper::toResponse)
                 .toList();
 
+
+        return new ResponseEntity<>(
+                new PageResponse<>(
+                        response,
+                        page,
+                        size,
+                        response.size()
+                ),
+                HttpStatus.FOUND
+        );
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseEntity<PageResponse<RecordResponse>> getAllByUser(@RequestParam("username") String username,
+                                                                     @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+                                                                     @RequestParam(name = "size", required = false, defaultValue = "10") int size)
+    {
+        List<RecordResponse> response = recordService.findAllByUser(username, page, size)
+                .stream()
+                .map(recordMapper::toResponse)
+                .toList();
 
         return new ResponseEntity<>(
                 new PageResponse<>(
