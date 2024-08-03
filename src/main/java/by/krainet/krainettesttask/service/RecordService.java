@@ -48,6 +48,9 @@ public class RecordService {
     }
 
     public void deleteById(Long id) {
-        recordRepository.deleteById(id);
+        Record recordToDelete = recordRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Record.class, Map.of("Id", id.toString())));
+
+        recordRepository.delete(recordToDelete);
     }
 }
