@@ -42,4 +42,8 @@ public class RecordService {
                 .stream()
                 .toList();
     }
+
+    public List<Record> findAll() {
+        return recordRepository.findAll();
+    }
 }

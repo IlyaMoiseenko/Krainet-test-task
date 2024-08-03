@@ -83,4 +83,25 @@ public class RecordController {
                 HttpStatus.FOUND
         );
     }
+
+    @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseEntity<PageResponse<RecordResponse>> getAll(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
+                                                               @RequestParam(name = "size", required = false, defaultValue = "10") int size)
+    {
+        List<RecordResponse> response = recordService.findAll()
+                .stream()
+                .map(recordMapper::toResponse)
+                .toList();
+
+        return new ResponseEntity<>(
+                new PageResponse<>(
+                        response,
+                        page,
+                        size,
+                        response.size()
+                ),
+                HttpStatus.FOUND
+        );
+    }
 }
